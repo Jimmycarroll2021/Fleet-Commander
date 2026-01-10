@@ -1,0 +1,105 @@
+{
+  "$schema": "https://anthropic.com/claude-code/commands-schema.json",
+  "version": "1.0.0",
+  "commands": [
+    {
+      "name": "commit-push-pr",
+      "description": "Commit changes, push, and create PR (used dozens of times/day)",
+      "usage": "/commit-push-pr [commit message]",
+      "prompt": "Execute the following steps:\n1. Run 'git status' to review changes\n2. Run 'git diff' to see what changed\n3. Review the changes and create a clear, descriptive commit message following the format in CLAUDE.md\n4. Run 'git add .' to stage all changes\n5. Commit with message: {{args}}\n6. Push to origin with 'git push -u origin $(git branch --show-current)'\n7. Create a PR using 'gh pr create --fill' with a detailed description\n8. Return the PR URL\n\nCommit message style: Follow conventional commits (feat:, fix:, docs:, refactor:, test:, chore:)",
+      "examples": [
+        "/commit-push-pr \"feat: add user authentication system\"",
+        "/commit-push-pr \"fix: resolve login token expiration bug\"",
+        "/commit-push-pr \"docs: update API documentation\""
+      ]
+    },
+    {
+      "name": "implement-feature",
+      "description": "One-shot feature implementation with planning",
+      "usage": "/implement-feature [feature description]",
+      "prompt": "Implement the following feature using the Fleet Commander workflow:\n\nPhase 1: PLANNING (MANDATORY)\n1. Analyze the feature request: {{args}}\n2. Review CLAUDE.md for architectural guidelines\n3. Create a detailed implementation plan including:\n   - Files to create/modify\n   - Data structures needed\n   - Edge cases to handle\n   - Testing strategy\n4. Present the plan and wait for approval\n\nPhase 2: EXECUTION\n5. Implement the feature according to the approved plan\n6. Write tests alongside implementation\n7. Run auto-formatting hooks\n\nPhase 3: VERIFICATION\n8. Run full test suite\n9. If tests fail, enter autonomous fix loop until all pass\n10. Run linting and type checking\n11. Only mark complete when all checks pass\n\nReport: Provide summary of changes with file paths and line numbers",
+      "examples": [
+        "/implement-feature \"Add dark mode toggle to settings\"",
+        "/implement-feature \"Implement password reset flow with email verification\""
+      ]
+    },
+    {
+      "name": "verify-app",
+      "description": "Run full verification suite (tests, linting, type checking, build)",
+      "usage": "/verify-app",
+      "prompt": "Run comprehensive verification of the application:\n\n1. **Tests**\n   - Run full test suite\n   - Report pass/fail count\n   - If failures, analyze and report root causes\n\n2. **Linting**\n   - Run linter appropriate for project (ESLint, Ruff, Clippy, etc.)\n   - Report any style violations\n\n3. **Type Checking**\n   - Run type checker if applicable (TypeScript, mypy, etc.)\n   - Report any type errors\n\n4. **Build**\n   - Attempt production build\n   - Report build time and any warnings/errors\n\n5. **Self-Correction Loop**\n   - If any check fails, enter autonomous fix loop\n   - Fix issues one by one\n   - Re-run verification after each fix\n   - Continue until all checks pass\n\n6. **Summary Report**\n   - List all checks and their status\n   - Report total time taken\n   - Confirm app is production-ready or list remaining issues",
+      "examples": [
+        "/verify-app"
+      ]
+    },
+    {
+      "name": "add-learning",
+      "description": "Add a lesson learned to CLAUDE.md institutional memory",
+      "usage": "/add-learning [lesson description]",
+      "prompt": "Add the following lesson to CLAUDE.md under the 'Lessons Learned' section:\n\nLesson: {{args}}\n\nFormat it as:\n```\n[YYYY-MM-DD] Title\n- Problem: [What went wrong or what was discovered]\n- Solution: [How it was resolved]\n- Context: [Relevant PR, issue, or file references]\n- Learning: [Key takeaway for future work]\n```\n\nUse today's date and create a clear, actionable learning entry.",
+      "examples": [
+        "/add-learning \"Database connection pooling required after hitting connection limits under load\"",
+        "/add-learning \"Always validate email format on both client and server side\""
+      ]
+    },
+    {
+      "name": "plan-sprint",
+      "description": "Break down a sprint task into parallel Fleet Commander tasks",
+      "usage": "/plan-sprint [sprint goal]",
+      "prompt": "Break down the following sprint goal into parallel tasks for Fleet Commander workflow:\n\nSprint Goal: {{args}}\n\n1. Analyze the goal and identify major components\n2. Break into 5 parallel tasks (one per CLI instance/tab)\n3. For each task, specify:\n   - Task name\n   - Files to modify/create\n   - Dependencies (if any)\n   - Estimated complexity\n   - Success criteria\n\n4. Format output as a task assignment:\n```\nTab 1: [Task Name]\n  - Files: [list]\n  - Dependencies: [list or 'None']\n  - Complexity: [Low/Medium/High]\n  - Success: [criteria]\n\nTab 2: [Task Name]\n  ...\n```\n\n5. Identify which tasks can run in parallel vs. sequential\n6. Suggest verification strategy once all tasks complete",
+      "examples": [
+        "/plan-sprint \"Build complete user authentication system\"",
+        "/plan-sprint \"Add analytics dashboard with charts and exports\""
+      ]
+    },
+    {
+      "name": "self-correct",
+      "description": "Enter autonomous self-correction loop until all tests pass",
+      "usage": "/self-correct",
+      "prompt": "Enter the 'Ralph Wiggum' self-correction loop:\n\n1. Run all tests\n2. If all pass → Report success and exit\n3. If any fail:\n   a. Analyze the failure\n   b. Identify root cause\n   c. Implement fix\n   d. Run tests again\n   e. Repeat from step 2\n\nRules:\n- Maximum 10 iterations (prevent infinite loops)\n- If stuck after 3 attempts on same error, escalate to human\n- After each fix, explain what was changed and why\n- Only exit when ALL tests pass\n\nReport: Final status with number of iterations and fixes applied",
+      "examples": [
+        "/self-correct"
+      ]
+    },
+    {
+      "name": "review-code",
+      "description": "Perform code review with focus on quality and security",
+      "usage": "/review-code [file or directory]",
+      "prompt": "Perform comprehensive code review of: {{args}}\n\nReview checklist:\n1. **Security**\n   - SQL injection vulnerabilities\n   - XSS vulnerabilities\n   - Authentication/authorization issues\n   - Secrets or API keys in code\n   - Input validation\n\n2. **Code Quality**\n   - Follow SOLID principles?\n   - Appropriate abstractions?\n   - Code duplication?\n   - Function complexity\n   - Naming clarity\n\n3. **Testing**\n   - Test coverage adequate?\n   - Edge cases handled?\n   - Mock/stub usage appropriate?\n\n4. **Performance**\n   - Obvious bottlenecks?\n   - Unnecessary loops or computations?\n   - Database query efficiency\n\n5. **Maintainability**\n   - Code is self-documenting?\n   - Complex logic explained?\n   - Follows project conventions?\n\nOutput: Prioritized list of issues (Critical, High, Medium, Low) with specific line references",
+      "examples": [
+        "/review-code src/auth",
+        "/review-code src/services/user-service.ts"
+      ]
+    },
+    {
+      "name": "explain-architecture",
+      "description": "Explain the project architecture and key design patterns",
+      "usage": "/explain-architecture [component]",
+      "prompt": "Explain the architecture of: {{args}}\n\n1. Read CLAUDE.md for documented architectural decisions\n2. Analyze the codebase structure\n3. Identify:\n   - Design patterns used\n   - Data flow\n   - Key abstractions\n   - Integration points\n   - Potential bottlenecks\n\n4. Create a clear explanation including:\n   - High-level overview\n   - Component diagram (ASCII art)\n   - Key files and their responsibilities\n   - How components interact\n   - Design rationale (why this approach?)\n\n5. Suggest improvements or considerations for future work",
+      "examples": [
+        "/explain-architecture authentication system",
+        "/explain-architecture database layer"
+      ]
+    },
+    {
+      "name": "generate-tests",
+      "description": "Generate comprehensive test suite for a module",
+      "usage": "/generate-tests [file or module]",
+      "prompt": "Generate comprehensive test suite for: {{args}}\n\n1. Analyze the code to test\n2. Identify:\n   - Public functions/methods\n   - Edge cases\n   - Error conditions\n   - Integration points\n\n3. Create tests covering:\n   - Happy path scenarios\n   - Edge cases\n   - Error handling\n   - Boundary conditions\n\n4. Follow project testing conventions from CLAUDE.md\n5. Use appropriate test structure (Arrange-Act-Assert)\n6. Include descriptive test names\n7. Add comments for complex test setups\n\n8. Run tests to verify they pass\n9. Report coverage percentage if available",
+      "examples": [
+        "/generate-tests src/services/auth-service.ts",
+        "/generate-tests utils/validation.py"
+      ]
+    },
+    {
+      "name": "quick-fix",
+      "description": "Quick bug fix without full feature workflow",
+      "usage": "/quick-fix [bug description]",
+      "prompt": "Execute quick bug fix for: {{args}}\n\n1. Locate the bug (search codebase)\n2. Analyze root cause\n3. Propose fix (keep it minimal)\n4. Implement fix\n5. Run relevant tests\n6. If tests fail, fix and re-run\n7. Once tests pass, commit with message: 'fix: {{args}}'\n\nRules:\n- Keep changes minimal (only fix the bug)\n- Don't refactor surrounding code\n- Don't add new features\n- Verify fix doesn't break anything else",
+      "examples": [
+        "/quick-fix \"Login button not responding on mobile\"",
+        "/quick-fix \"API returns 500 when user email is null\""
+      ]
+    }
+  ]
+}

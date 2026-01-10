@@ -1,0 +1,44 @@
+{
+  "hooks": {
+    "postToolUse": {
+      "description": "Auto-format code after file modifications (fixes 'last 10%' of syntax errors)",
+      "enabled": true,
+      "script": ".claude/hooks/post-tool-use.sh"
+    },
+    "preCommit": {
+      "description": "Run tests and type checking before commits",
+      "enabled": true,
+      "script": ".claude/hooks/pre-commit.sh"
+    },
+    "onSessionStart": {
+      "description": "Load CLAUDE.md institutional memory on startup",
+      "enabled": true,
+      "script": ".claude/hooks/on-session-start.sh"
+    },
+    "onTaskComplete": {
+      "description": "Send system notification when background task completes",
+      "enabled": true,
+      "script": ".claude/hooks/on-task-complete.sh"
+    }
+  },
+  "configuration": {
+    "notifications": {
+      "enabled": true,
+      "sound": true,
+      "urgency": "normal"
+    },
+    "autoFormat": {
+      "javascript": ["prettier", "eslint"],
+      "typescript": ["prettier", "eslint"],
+      "python": ["black", "ruff"],
+      "rust": ["rustfmt"],
+      "go": ["gofmt"]
+    },
+    "verification": {
+      "runTestsOnCommit": true,
+      "runLintingOnCommit": true,
+      "runTypeCheckOnCommit": true,
+      "failOnError": true
+    }
+  }
+}
