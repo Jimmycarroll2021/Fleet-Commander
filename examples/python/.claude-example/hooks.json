@@ -1,0 +1,30 @@
+{
+  "hooks": {
+    "postToolUse": {
+      "description": "Auto-format Python files with Black and Ruff",
+      "enabled": true,
+      "script": ".claude/hooks/post-tool-use.sh"
+    },
+    "preCommit": {
+      "description": "Run tests with pytest, type checking with mypy",
+      "enabled": true,
+      "script": ".claude/hooks/pre-commit.sh"
+    },
+    "onSessionStart": {
+      "description": "Load CLAUDE.md and display project context",
+      "enabled": true,
+      "script": ".claude/hooks/on-session-start.sh"
+    }
+  },
+  "configuration": {
+    "autoFormat": {
+      "python": ["black", "ruff check --fix"]
+    },
+    "verification": {
+      "test": "pytest",
+      "lint": "ruff check .",
+      "typeCheck": "mypy .",
+      "format": "black --check ."
+    }
+  }
+}

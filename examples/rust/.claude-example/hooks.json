@@ -1,0 +1,30 @@
+{
+  "hooks": {
+    "postToolUse": {
+      "description": "Auto-format Rust files with rustfmt",
+      "enabled": true,
+      "script": ".claude/hooks/post-tool-use.sh"
+    },
+    "preCommit": {
+      "description": "Run cargo test, clippy, and format check",
+      "enabled": true,
+      "script": ".claude/hooks/pre-commit.sh"
+    },
+    "onSessionStart": {
+      "description": "Load CLAUDE.md and display project context",
+      "enabled": true,
+      "script": ".claude/hooks/on-session-start.sh"
+    }
+  },
+  "configuration": {
+    "autoFormat": {
+      "rust": ["rustfmt"]
+    },
+    "verification": {
+      "test": "cargo test",
+      "lint": "cargo clippy -- -D warnings",
+      "format": "cargo fmt -- --check",
+      "build": "cargo build --release"
+    }
+  }
+}

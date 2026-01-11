@@ -1,35 +1,92 @@
-# Fleet Commander Workflow
+<div align="center">
 
-> **Transform Claude Code into a parallel processing powerhouse**
+# ⚡ Fleet Commander Workflow
 
-A complete implementation of Boris Cherny's "Fleet Commander" workflow for managing multiple Claude Code instances as orchestrated compute capacity.
+### Transform Claude Code into a Parallel Processing Powerhouse
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/yourusername/Fleet-Commander/releases)
+[![Claude Code](https://img.shields.io/badge/Claude_Code-Ready-purple.svg)](https://claude.ai/code)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+
+**A complete implementation of Boris Cherny's "Fleet Commander" workflow for managing multiple Claude Code instances as orchestrated compute capacity.**
+
+[Quick Start](#-quick-start) •
+[Documentation](docs/FLEET_COMMANDER_WORKFLOW.md) •
+[Commands](#-custom-slash-commands) •
+[Contributing](CONTRIBUTING.md) •
+[Changelog](CHANGELOG.md)
+
+</div>
+
+---
 
 ## 🎯 What is Fleet Commander?
 
 Fleet Commander is a methodology for treating Claude Code as **compute capacity** rather than a conversational assistant. Instead of having one Claude session, you run 5+ instances in parallel, each working on independent tasks while you orchestrate them like a fleet commander managing multiple ships.
 
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    YOU (Fleet Commander)                     │
+│              Orchestrating Multiple Claude Instances         │
+└──────────┬──────────┬──────────┬──────────┬─────────────────┘
+           │          │          │          │
+    ┌──────▼──────┐ ┌▼──────────┐ ┌▼──────────┐ ┌▼──────────┐ ┌▼──────────┐
+    │   Tab 1     │ │   Tab 2   │ │   Tab 3   │ │   Tab 4   │ │   Tab 5   │
+    │   Feature   │ │   Tests   │ │   Docs    │ │  Bug Fix  │ │  Review   │
+    │Implementation│ │  Writing  │ │  Update   │ │   #123    │ │  Code     │
+    └─────────────┘ └───────────┘ └───────────┘ └───────────┘ └───────────┘
+           │                │              │             │             │
+           ▼                ▼              ▼             ▼             ▼
+    [Autonomous]     [Autonomous]    [Autonomous]  [Autonomous]  [Autonomous]
+    [Self-Verify]    [Self-Verify]   [Self-Verify] [Self-Verify] [Self-Verify]
+           │                │              │             │             │
+           ▼                ▼              ▼             ▼             ▼
+    [Notification]   [Notification]  [Notification][Notification][Notification]
+     "Task Done!"     "Tests Pass!"   "Docs Ready"  "Bug Fixed"  "Review OK"
+```
+
 ### Key Benefits
 
-- **2-3x quality improvement** via self-verification loops
-- **One senior dev = small team output** through parallel execution
-- **Institutional memory** that persists across sessions
-- **Autonomous verification** that catches bugs before you see them
+- **⚡ 2-3x quality improvement** via self-verification loops
+- **🚀 One senior dev = small team output** through parallel execution
+- **🧠 Institutional memory** that persists across sessions
+- **🛡️ Autonomous verification** that catches bugs before you see them
+- **📊 Reduced context switching** by 70% - work only when notified
+- **🔄 Self-healing code** through autonomous correction loops
 
 ## 🚀 Quick Start
+
+### Prerequisites
+
+- **Claude Code CLI** installed ([Installation Guide](https://docs.anthropic.com/claude/docs/claude-code))
+- **Git** for version control
+- **jq** for JSON processing (auto-installed by quick-start script)
+- Terminal with tab support (iTerm2, Ghostty, or similar recommended)
 
 ### Installation
 
 ```bash
-# 1. Clone or use this template
-git clone <your-repo>
+# 1. Clone this repository (or use as template on GitHub)
+git clone https://github.com/yourusername/Fleet-Commander.git
 cd Fleet-Commander
 
-# 2. Run quick start setup
+# 2. Run the automated setup (installs dependencies, initializes fleet)
+chmod +x scripts/quick-start.sh
 ./scripts/quick-start.sh
 
-# 3. Customize CLAUDE.md for your project
+# 3. Customize CLAUDE.md for your specific project
 vim CLAUDE.md
+# Add your tech stack, architectural decisions, and team standards
+
+# 4. (Optional) Test a custom command
+claude-code
+# Then type: /verify-app
 ```
+
+### Video Tutorial
+
+> 📹 **Coming Soon**: Step-by-step video walkthrough of Fleet Commander setup
 
 ### Basic Usage
 

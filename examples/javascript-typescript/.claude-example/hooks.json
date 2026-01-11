@@ -1,0 +1,33 @@
+{
+  "hooks": {
+    "postToolUse": {
+      "description": "Auto-format JavaScript/TypeScript files with Prettier and ESLint",
+      "enabled": true,
+      "script": ".claude/hooks/post-tool-use.sh"
+    },
+    "preCommit": {
+      "description": "Run tests, linting, and type checking before commits",
+      "enabled": true,
+      "script": ".claude/hooks/pre-commit.sh"
+    },
+    "onSessionStart": {
+      "description": "Load CLAUDE.md and display project context",
+      "enabled": true,
+      "script": ".claude/hooks/on-session-start.sh"
+    }
+  },
+  "configuration": {
+    "autoFormat": {
+      "javascript": ["prettier --write", "eslint --fix"],
+      "typescript": ["prettier --write", "eslint --fix"],
+      "jsx": ["prettier --write", "eslint --fix"],
+      "tsx": ["prettier --write", "eslint --fix"]
+    },
+    "verification": {
+      "test": "npm test",
+      "lint": "eslint .",
+      "typeCheck": "tsc --noEmit",
+      "build": "npm run build"
+    }
+  }
+}
